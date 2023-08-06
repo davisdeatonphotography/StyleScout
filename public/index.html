@@ -1,15 +1,16 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Style Scout - Explore Design Styles!?</title>
-<link rel="stylesheet" href="/styles.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="/styles.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <script src="https://unpkg.com/swup@4"></script>
 <script src="https://unpkg.com/@swup/scroll-plugin@3"></script>
 <script src="https://unpkg.com/@swup/preload-plugin@2"></script>
-<link rel="stylesheet" href="https://unpkg.com/normalize.css">
+<link href="https://unpkg.com/normalize.css" rel="stylesheet"/>
 </head>
 <body>
 <nav id="header">
@@ -17,50 +18,48 @@
 Style Scout
 </div>
 <div class="navigation">
-<a href="#home" class="nav-item">Home</a>
-<a href="#analyzer" class="nav-item">Analyzer</a>
-<a href="#results" class="nav-item">Results</a>
+<a class="nav-item" href="#home">Home</a>
+<a class="nav-item" href="#analyzer">Analyzer</a>
+<a class="nav-item" href="#results">Results</a>
 </div>
 </nav>
-<main id="swup" class="transition-fade">
+<main class="transition-fade" id="swup">
 <section id="home">
 <section id="analysis-modules">
-    <div class="module" id="color-scheme">
-        <div class="square"></div>
-        <h2>Color Scheme Analysis</h2>
-        <p class="module-result"></p>
-    </div>
-    <div class="module" id="typography">
-        <div class="square"></div>
-        <h2>Typography Analysis</h2>
-        <p class="module-result"></p>
-    </div>
-    <div class="module" id="layout-spacing">
-        <div class="square"></div>
-        <h2>Layout & Spacing Analysis</h2>
-        <p class="module-result"></p>
-    </div>
-    <div class="module" id="design-principles">
-        <div class="square"></div>
-        <h2>Design Principles Analysis</h2>
-        <p class="module-result"></p>
-    </div>
-    <div class="module" id="imagery-graphics">
-        <div class="square"></div>
-        <h2>Imagery & Graphics Analysis</h2>
-        <p class="module-result"></p>
-    </div>
+<div class="module" id="color-scheme">
+<div class="square"></div>
+<h2>Color Scheme Analysis</h2>
+<p class="module-result"></p>
+</div>
+<div class="module" id="typography">
+<div class="square"></div>
+<h2>Typography Analysis</h2>
+<p class="module-result"></p>
+</div>
+<div class="module" id="layout-spacing">
+<div class="square"></div>
+<h2>Layout &amp; Spacing Analysis</h2>
+<p class="module-result"></p>
+</div>
+<div class="module" id="design-principles">
+<div class="square"></div>
+<h2>Design Principles Analysis</h2>
+<p class="module-result"></p>
+</div>
+<div class="module" id="imagery-graphics">
+<div class="square"></div>
+<h2>Imagery &amp; Graphics Analysis</h2>
+<p class="module-result"></p>
+</div>
 </section>
-
 <section id="progress-section">
-    <div class="progress-bar" id="analysis-progress"></div>
-    <p id="error-message" class="error"></p>
+<div class="progress-bar" id="analysis-progress"></div>
+<p class="error" id="error-message"></p>
 </section>
-
 <div class="content">
 <h1>Welcome to Style Scout!</h1>
 <p>This is a tool that analyzes websites to understand their design and style.</p>
-<a href="#analyzer" class="button">Get Started</a>
+<a class="button" href="#analyzer">Get Started</a>
 </div>
 <div id="progressBar">
 <div id="progress"></div>
@@ -70,7 +69,7 @@ Style Scout
 <div class="content">
 <h2>Analyze a Website</h2>
 <div class="form">
-<input type="text" id="urlInput" placeholder="Enter website URL...">
+<input id="urlInput" placeholder="Enter website URL..." type="text"/>
 <button id="analyzeButton">Analyze</button>
 </div>
 <div id="errorMessage"></div>
@@ -78,68 +77,63 @@ Style Scout
 <div id="progress"></div>
 </div>
 <div class="button-nav" onclick="window.location.href='#home'">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+<svg fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M11 19l-7-7 7-7m8 14l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
 </div>
 <div class="button-nav" onclick="window.location.href='#results'">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+<svg fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M13 5l7 7-7 7M5 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
 </div>
-</section>
+</div></section>
 <section id="results">
 <div class="content">
 <h2>Analysis Results</h2>
 <div id="analysis"></div>
 </div>
 <div class="button-nav" onclick="window.location.href='#analyzer'">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+<svg fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M11 19l-7-7 7-7m8 14l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
 </div>
 <div class="button-nav" onclick="window.location.href='#home'">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+<svg fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
 </div>
-</section>
-
+<div id="css-content">CSS Content will be displayed here.</div><div id="colors-container">Colors will be displayed here.</div><div id="fonts-container">Fonts will be displayed here.</div><div id="analysis-container">Analysis will be displayed here.</div></section>
 <!-- Results Display Container -->
-<div id="resultsContainer" class="results-container">
-    <!-- Color Scheme Square -->
-    <div class="result-square">
-        <h2>Color Scheme</h2>
-        <div class="result-content" id="colorSchemeResult"></div>
-    </div>
-
-    <!-- Typography Square -->
-    <div class="result-square">
-        <h2>Typography</h2>
-        <div class="result-content" id="typographyResult"></div>
-    </div>
-
-    <!-- Layout Square -->
-    <div class="result-square">
-        <h2>Layout and Spacing</h2>
-        <div class="result-content" id="layoutResult"></div>
-    </div>
-
-    <!-- Design Principles Square -->
-    <div class="result-square">
-        <h2>Design Principles</h2>
-        <div class="result-content" id="designPrinciplesResult"></div>
-    </div>
-
-    <!-- Imagery and Graphics Square -->
-    <div class="result-square">
-        <h2>Imagery and Graphics</h2>
-        <div class="result-content" id="imageryResult"></div>
-    </div>
+<div class="results-container" id="resultsContainer">
+<!-- Color Scheme Square -->
+<div class="result-square">
+<h2>Color Scheme</h2>
+<div class="result-content" id="colorSchemeResult"></div>
+</div>
+<!-- Typography Square -->
+<div class="result-square">
+<h2>Typography</h2>
+<div class="result-content" id="typographyResult"></div>
+</div>
+<!-- Layout Square -->
+<div class="result-square">
+<h2>Layout and Spacing</h2>
+<div class="result-content" id="layoutResult"></div>
+</div>
+<!-- Design Principles Square -->
+<div class="result-square">
+<h2>Design Principles</h2>
+<div class="result-content" id="designPrinciplesResult"></div>
+</div>
+<!-- Imagery and Graphics Square -->
+<div class="result-square">
+<h2>Imagery and Graphics</h2>
+<div class="result-content" id="imageryResult"></div>
+</div>
 </div>
 </main>
 <footer>
-<p>&copy; 2023 Style Scout</p>
+<p>© 2023 Style Scout</p>
 <p>Contact: davis.deaton@verizon.net</p>
 </footer>
 <script src="/app.js"></script>

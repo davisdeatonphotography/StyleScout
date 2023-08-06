@@ -58,16 +58,6 @@ async function analyzeWithOpenAI(cssData) {
     return data.choices[0].message.content.trim();
 }
 
-app.post('/analyze', async (req, res) => {
-    try {
-        const { cssData } = req.body;
-        const analysis = await analyzeWithOpenAI(cssData);
-        res.json({ description: analysis });
-    } catch (error) {
-        console.error("Error analyzing CSS with OpenAI:", error);
-        res.status(500).json({ error: "Failed to analyze with OpenAI" });
-    }
-});
 
 app.post('/analyze', async (req, res) => {
     try {
@@ -80,7 +70,7 @@ app.post('/analyze', async (req, res) => {
         const openaiResponse = await openai.createCompletion({
             model: "gpt-3.5-turbo-16k",
             prompt: prompt,
-            maxTokens: 500 // Limit the response length
+            maxTokens: 4096 // Limit the response length
         });
         
         // Send the generated description back to the client
@@ -160,12 +150,22 @@ async function sendRequestWithRetry(cssContent, retries = 5, delay = 5 * 60 * 10
   }
 }
 
-const MAX_TOKENS = 100; // Maximum number of tokens allowed in a request
+const MAX_TOKENS = 4096; // Maximum number of tokens allowed in a request
 
 // Truncate the text to the maximum number of tokens
+
+// Truncate the text to the maximum number of tokens without breaking the CSS structure
 function truncate(text, maxTokens) {
-  return text.slice(0, maxTokens);
+    const initialTruncate = text.slice(0, maxTokens);
+    const lastBrace = initialTruncate.lastIndexOf("}");
+    
+    if (lastBrace !== -1) {
+        return initialTruncate.slice(0, lastBrace + 1);
+    }
+    
+    return initialTruncate;
 }
+
 
 // Function to filter out unwanted CSS content
 function filterCssContent(cssContent) {
@@ -264,6 +264,26 @@ async function getFontsFromPage(url) {
   return fonts;
 }
 
+
+function calculateHarmonyScore(colors) {
+    // Placeholder logic, can be enhanced
+    return colors.length * 2;  // example logic
+}
+
+function calculateContrastScore(colors) {
+    // Placeholder logic, can be enhanced
+    return colors.length * 3;  // example logic
+}
+
+function calculateReadabilityScore(fonts) {
+    // Placeholder logic, can be enhanced
+    return fonts.length * 4;  // example logic
+}
+
+function calculateSuitabilityScore(fonts) {
+    // Placeholder logic, can be enhanced
+    return fonts.length * 5;  // example logic
+}
 function calculateScore(category, analysis) {
   // Placeholder scoring logic
   let score = 0;
@@ -272,14 +292,14 @@ function calculateScore(category, analysis) {
   switch (category) {
     case "Color Scheme":
       // Calculate score based on the harmony and contrast of the colors
-      const harmonyScore = Math.floor(Math.random() * 11); // Random score between 0 and 10
-      const contrastScore = Math.floor(Math.random() * 11); // Random score between 0 and 10
+      const harmonyScore = calculateHarmonyScore(colors); // Random score between 0 and 10
+      const contrastScore = calculateContrastScore(colors); // Random score between 0 and 10
       score = (harmonyScore + contrastScore) / 2; // Average score
       break;
     case "Typography":
       // Calculate score based on the readability and suitability of the fonts
-      const readabilityScore = Math.floor(Math.random() * 11); // Random score between 0 and 10
-      const suitabilityScore = Math.floor(Math.random() * 11); // Random score between 0 and 10
+      const readabilityScore = calculateReadabilityScore(fonts); // Random score between 0 and 10
+      const suitabilityScore = calculateSuitabilityScore(fonts); // Random score between 0 and 10
       score = (readabilityScore + suitabilityScore) / 2; // Average score
       break;
     case "Layout and Spacing":
