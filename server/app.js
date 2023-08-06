@@ -4,12 +4,93 @@ const fs = require('fs');
 const validator = require('validator');
 const express = require('express');
 const cors = require('cors');
-const axios = require('axios');
+const { Configuration, OpenAIApi } = require('openai');
 const puppeteer = require('puppeteer');
 const winston = require('winston');
 const path = require('path');
 
+// Read .env file
+const envFileContents = fs.readFileSync(path.join(__dirname, '/../.env'), 'utf-8');
+
+// Split file into lines
+const lines = envFileContents.split('\n');
+
+// Parse lines into key-value pairs
+const env = {};
+lines.forEach((line) => {
+  const [key, value] = line.split('=');
+  if (key && value) {
+    env[key.trim()] = value.trim();
+  }
+});
+
 console.log('OPENAI_API_KEY:', process.env.OPENAI_API_KEY);
+
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(configuration);
+
+
+
+// OpenAI API Integration
+const OPENAI_API_ENDPOINT = "https://api.openai.com/v1/chat/completions";
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;  // Ensure this key is set in the .env file
+
+async function analyzeWithOpenAI(cssData) {
+    const headers = {
+        'Authorization': `Bearer ${OPENAI_API_KEY}`,
+        'Content-Type': 'application/json',
+    };
+    const body = {
+        model: "gpt-3.5-turbo-16k",
+        messages: [
+            { role: 'system', content: 'Analyze the provided CSS data and provide comprehensive feedback.' },
+            { role: 'user', content: cssData }
+        ]
+    };
+    const response = await fetch(OPENAI_API_ENDPOINT, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(body)
+    });
+    const data = await response.json();
+    return data.choices[0].message.content.trim();
+}
+
+app.post('/analyze', async (req, res) => {
+    try {
+        const { cssData } = req.body;
+        const analysis = await analyzeWithOpenAI(cssData);
+        res.json({ description: analysis });
+    } catch (error) {
+        console.error("Error analyzing CSS with OpenAI:", error);
+        res.status(500).json({ error: "Failed to analyze with OpenAI" });
+    }
+});
+
+app.post('/analyze', async (req, res) => {
+    try {
+        const { cssData } = req.body;
+        
+        // Construct the prompt for OpenAI based on the received CSS data
+        const prompt = `Analyze the following CSS data and provide insights: ${cssData}`;
+        
+        // Make a call to OpenAI API
+        const openaiResponse = await openai.createCompletion({
+            model: "gpt-3.5-turbo-16k",
+            prompt: prompt,
+            maxTokens: 500 // Limit the response length
+        });
+        
+        // Send the generated description back to the client
+        res.json({ description: openaiResponse.data.choices[0].text.trim() });
+        
+    } catch (error) {
+        console.error("Error analyzing CSS with OpenAI:", error);
+        res.status(500).json({ error: "Failed to analyze with OpenAI" });
+    }
+});
 
 // Create Express app
 const app = express();
@@ -50,22 +131,17 @@ async function sendRequestWithRetry(cssContent, retries = 5, delay = 5 * 60 * 10
     logger.info(`Sending request number ${requestCount}`);
 
     const truncatedContent = truncate(cssContent, MAX_TOKENS);
-    const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-      model: "gpt-3.5-turbo",
-      messages: [
-        { role: "system", content: "You are a helpful assistant." },
-        { role: "user", content: truncatedContent }
-      ],
-    }, {
-      headers: {
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    
 
-    logger.info('Received response from OpenAI API:', response.data);
-    return response.data;
+    const analysis = await openai.createChatCompletion({
+      model: 'gpt-3.5-turbo',
+      messages: [
+        { role: 'system', content: 'You are an AI trained to analyze CSS.' },
+        { role: 'user', content: truncatedContent },
+      ],
+    });
+
+    logger.info('Received response from OpenAI API:', analysis);
+    return analysis;
   } catch (error) {
     if (error.response && error.response.status === 429) {
       if (retries > 0) {
@@ -112,11 +188,7 @@ function filterCssContent(cssContent) {
 }
 
 async function getCssContentFromUrl(url) {
-  const browser = await puppeteer.launch({
-    headless: "new",
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  });
-  
+  const browser = await puppeteer.launch({ headless: 'new' });
   const page = await browser.newPage();
   await page.goto(url, { waitUntil: 'networkidle2' });
 
@@ -282,10 +354,7 @@ const analyzeWebsite = async (req, res) => {
     // Send the captured CSS to the OpenAI API for text generation
     logger.info('Sending request to OpenAI API');
 
-    const analysisResponse = await sendRequestWithRetry(truncatedPrompt);
-
-    // Extract the analysis content from the response
-    const analysis = analysisResponse.choices[0].text;
+    const analysis = await sendRequestWithRetry(filteredCssContent);
 
     // Analyze and score each category
     const categories = ["Color Scheme", "Typography", "Layout and Spacing", "Design Principles", "Imagery and Graphics"];
@@ -295,18 +364,17 @@ const analyzeWebsite = async (req, res) => {
       const categoryAnalysisResponse = await sendRequestWithRetry(categoryPrompt);
       const score = calculateScore(category, categoryAnalysisResponse);
       categoryAnalysis[category] = {
-        analysis: categoryAnalysisResponse.choices[0].text,
+        analysis: categoryAnalysisResponse.data.choices[0].message.content,
         score: score
       };
     }
 
-    res.json({ css: filteredCssContent, colors, fonts, categoryAnalysis, analysis });
+    res.json({ css: filteredCssContent, colors, fonts, categoryAnalysis, analysis: analysis.data.choices[0].message.content });
   } catch (error) {
     logger.error('An error occurred while analyzing the website:', error);
     res.status(500).json({ error: 'An error occurred while analyzing the website.', details: error });
   }
 }
-
 
 // Route to analyze site CSS
 app.post('/analyze', analyzeWebsite);
@@ -328,4 +396,78 @@ app.use((err, req, res, next) => {
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   logger.info(`Server running on port ${port}`);
+});
+
+async function getCssContentFromUrl(url) {
+    const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage();
+    
+    // Navigate to the given URL
+    await page.goto(url, { waitUntil: 'networkidle2' });
+    
+    // Extract CSS content from the webpage
+    const cssContent = await page.evaluate(() => {
+        const styleSheets = [...document.styleSheets];
+        let extractedStyles = '';
+        
+        styleSheets.forEach((sheet) => {
+            try {
+                if (sheet.cssRules) {
+                    const rules = [...sheet.cssRules];
+                    rules.forEach((rule) => {
+                        extractedStyles += rule.cssText;
+                    });
+                }
+            } catch (error) {
+                console.error('Error reading styles from a stylesheet:', error);
+            }
+        });
+        
+        return extractedStyles;
+    });
+
+    await browser.close();
+    return cssContent;
+}
+
+async function analyzeCssWithOpenAI(cssContent) {
+    // Filter and truncate CSS content
+    cssContent = filterCssContent(cssContent);
+    cssContent = truncate(cssContent, MAX_TOKENS);
+
+    // Send the filtered CSS to the OpenAI API
+    try {
+        const analysis = await openai.createChatCompletion({
+            model: 'gpt-3.5-turbo',
+            messages: [
+                { role: 'system', content: 'You are an AI trained to analyze CSS and provide comprehensive feedback on design and structure.' },
+                { role: 'user', content: cssContent },
+            ],
+        });
+
+        // Return the analysis
+        return analysis.data.choices[0].message.content;
+    } catch (error) {
+        logger.error('Error interacting with OpenAI API:', error);
+        throw new Error('Error analyzing CSS with OpenAI.');
+    }
+}
+
+// Server endpoint to analyze a website's design
+app.post('/analyze', async (req, res) => {
+    try {
+        const { url } = req.body;
+
+        // Get CSS content from the provided URL
+        const cssContent = await getCssContentFromUrl(url);
+
+        // Get analysis from OpenAI
+        const analysis = await analyzeCssWithOpenAI(cssContent);
+
+        // Return the analysis to the frontend
+        res.json({ analysis });
+    } catch (error) {
+        logger.error('Error analyzing website:', error);
+        res.status(500).json({ error: 'Error analyzing website.' });
+    }
 });

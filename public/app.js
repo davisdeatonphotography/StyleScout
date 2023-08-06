@@ -186,3 +186,387 @@ function createModule(category, contentData) {
 
   return moduleDiv;
 }
+
+async function analyzeWebsite() {
+    // Show loading spinner and progress bar
+    analyzeButton.innerText = 'Loading...';
+    analyzeButton.disabled = true;
+    progressBar.style.visibility = 'visible';
+    errorMessage.style.display = 'none';  // Hide any previous error messages
+
+    const urlInput = document.getElementById('urlInput');
+    const url = urlInput.value;
+
+    // Validate URL
+    try {
+        new URL(url);
+    } catch (_) {
+        console.error('Invalid URL:', url);
+        errorMessage.innerText = 'Invalid URL.';
+        errorMessage.style.display = 'block';
+        resetAnalyzerUI();
+        return;
+    }
+
+    // Send request to server for analysis
+    try {
+        const response = await fetch('/analyze', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Display analysis in a preliminary manner (will refine this later)
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.innerHTML = data.analysis;
+        } else {
+            console.error('Error from server:', data.error);
+            errorMessage.innerText = data.error;
+            errorMessage.style.display = 'block';
+        }
+    } catch (error) {
+        console.error('Error analyzing website:', error);
+        errorMessage.innerText = 'Error analyzing website.';
+        errorMessage.style.display = 'block';
+    }
+
+    // Reset the UI
+    resetAnalyzerUI();
+}
+
+function resetAnalyzerUI() {
+    analyzeButton.innerText = 'Analyze';
+    analyzeButton.disabled = false;
+    progressBar.style.visibility = 'hidden';
+}
+
+// Handle the server's analysis response and populate the modular squares
+function displayAnalysis(analysis) {
+    // For demonstration purposes, we'll split the analysis into sections
+    // This is a placeholder approach; a more refined categorization should be based on the actual analysis structure
+    const analysisSections = analysis.split('-----');  // Assuming '-----' as a delimiter for sections
+
+    // Populate the modular squares
+    document.getElementById('colorSchemeResult').innerText = analysisSections[0] || 'Analysis not available';
+    document.getElementById('typographyResult').innerText = analysisSections[1] || 'Analysis not available';
+    document.getElementById('layoutResult').innerText = analysisSections[2] || 'Analysis not available';
+    document.getElementById('designPrinciplesResult').innerText = analysisSections[3] || 'Analysis not available';
+    document.getElementById('imageryResult').innerText = analysisSections[4] || 'Analysis not available';
+
+    // Trigger animations for the squares
+    animateSquares();
+}
+
+// Animate the modular squares with a fade-in-up effect
+function animateSquares() {
+    const squares = document.querySelectorAll('.result-square');
+    squares.forEach((square, index) => {
+        setTimeout(() => {
+            square.style.transform = 'translateY(0)';
+            square.style.opacity = '1';
+        }, index * 200);  // Staggered animation delay for each square
+    });
+}
+
+// Update the analyzeWebsite function to handle the server's response
+// ... [Rest of the analyzeWebsite function remains unchanged] ...
+if (response.ok) {
+    // Display analysis using the new function
+    displayAnalysis(data.analysis);
+} else {
+    // ... [Error handling remains unchanged] ...
+}
+// ... [Rest of the analyzeWebsite function remains unchanged] ...
+
+// Refining the display for the "Color Scheme" category
+function displayColorSchemeResults(analysisSection) {
+    const colorSchemeResult = document.getElementById('colorSchemeResult');
+    
+    // Extract relevant details from the analysis section
+    // For demonstration, we're assuming certain keywords or patterns (this should be refined based on actual analysis structure)
+    const primaryColor = analysisSection.match(/primary color #([a-fA-F0-9]{6})/)?.[1];
+    const accentColor = analysisSection.match(/accent color #([a-fA-F0-9]{6})/)?.[1];
+    
+    // Construct the display content
+    let content = '';
+    if (primaryColor) {
+        content += `<p><strong>Primary Color:</strong> <span style="background-color: #${primaryColor};">#${primaryColor}</span></p>`;
+    }
+    if (accentColor) {
+        content += `<p><strong>Accent Color:</strong> <span style="background-color: #${accentColor};">#${accentColor}</span></p>`;
+    }
+    
+    colorSchemeResult.innerHTML = content;
+}
+
+// Update the displayAnalysis function to handle the refined display for the "Color Scheme" category
+function displayAnalysis(analysis) {
+    // Split the analysis into sections
+    const analysisSections = analysis.split('-----');  // Assuming '-----' as a delimiter for sections
+
+    // Display the refined results for the "Color Scheme" category
+    displayColorSchemeResults(analysisSections[0]);
+    
+    // ... [Rest of the displayAnalysis function remains unchanged] ...
+}
+
+// Refining the display for the "Typography" category
+function displayTypographyResults(analysisSection) {
+    const typographyResult = document.getElementById('typographyResult');
+    
+    // Extract relevant details from the analysis section
+    // For demonstration, we're assuming certain keywords or patterns (this should be refined based on actual analysis structure)
+    const bodyFont = analysisSection.match(/body text is '(.*?)'/)?.[1];
+    const headerFont = analysisSection.match(/headers use '(.*?)'/)?.[1];
+    const bodyFontSize = analysisSection.match(/body text size of (\d+px)/)?.[1];
+    const headerFontSize = analysisSection.match(/header font size of (\d+px)/)?.[1];
+    
+    // Construct the display content
+    let content = '<h3>Font Choices:</h3>';
+    if (bodyFont) {
+        content += `<p><strong>Body Text:</strong> ${bodyFont}</p>`;
+    }
+    if (headerFont) {
+        content += `<p><strong>Headers:</strong> ${headerFont}</p>`;
+    }
+    content += '<h3>Readability:</h3>';
+    if (bodyFontSize) {
+        content += `<p><strong>Body Text Size:</strong> ${bodyFontSize}</p>`;
+    }
+    if (headerFontSize) {
+        content += `<p><strong>Header Size:</strong> ${headerFontSize}</p>`;
+    }
+    
+    typographyResult.innerHTML = content;
+}
+
+// Update the displayAnalysis function to handle the refined display for the "Typography" category
+function displayAnalysis(analysis) {
+    // Split the analysis into sections
+    const analysisSections = analysis.split('-----');  // Assuming '-----' as a delimiter for sections
+
+    // Display the refined results for the "Typography" category
+    displayTypographyResults(analysisSections[1]);
+    
+    // ... [Rest of the displayAnalysis function remains unchanged] ...
+}
+
+// Refining the display for the "Layout and Spacing" category
+function displayLayoutResults(analysisSection) {
+    const layoutResult = document.getElementById('layoutResult');
+    
+    // Extract and display relevant details from the analysis section
+    // For demonstration, using basic placeholders (should be refined based on actual analysis structure)
+    layoutResult.innerHTML = `<p>${analysisSection}</p>`;
+}
+
+// Refining the display for the "Design Principles" category
+function displayDesignPrinciplesResults(analysisSection) {
+    const designPrinciplesResult = document.getElementById('designPrinciplesResult');
+    
+    // Extract and display relevant details from the analysis section
+    // For demonstration, using basic placeholders (should be refined based on actual analysis structure)
+    designPrinciplesResult.innerHTML = `<p>${analysisSection}</p>`;
+}
+
+// Refining the display for the "Imagery and Graphics" category
+function displayImageryResults(analysisSection) {
+    const imageryResult = document.getElementById('imageryResult');
+    
+    // Extract and display relevant details from the analysis section
+    // For demonstration, using basic placeholders (should be refined based on actual analysis structure)
+    imageryResult.innerHTML = `<p>${analysisSection}</p>`;
+}
+
+// Update the displayAnalysis function to handle the refined display for all categories
+function displayAnalysis(analysis) {
+    // Split the analysis into sections
+    const analysisSections = analysis.split('-----');  // Assuming '-----' as a delimiter for sections
+
+    // Display the refined results for all categories
+    displayColorSchemeResults(analysisSections[0]);
+    displayTypographyResults(analysisSections[1]);
+    displayLayoutResults(analysisSections[2]);
+    displayDesignPrinciplesResults(analysisSections[3]);
+    displayImageryResults(analysisSections[4]);
+}
+
+
+// CSS Inspection
+document.body.addEventListener('mouseover', (event) => {
+    const elementStyles = window.getComputedStyle(event.target);
+    // TODO: Further processing or displaying of the styles
+});
+
+// CSS Analysis
+analyzeButton.addEventListener('click', async () => {
+    // Capture the CSS or other data to send for analysis
+    const cssData = /* Captured CSS data */;
+    try {
+        const response = await fetch('/analyze', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ cssData })
+        });
+        const data = await response.json();
+        
+// Extract the analysis results from the response and display them to the user
+const { description, scores } = data;
+analysisContent.innerHTML = description;
+// (Additional logic can be added here to display scores and other analysis details in the specified format)
+
+        
+        // Update the progress bar
+        progress.style.width = "100%";
+    } catch (error) {
+        errorMessage.textContent = "Error analyzing the website. Please try again.";
+    }
+});
+
+// TODO: Implement other client-side functionalities based on the placeholders and unfinished parts of the code
+
+
+// URL Submission and Analysis Initialization
+const websiteUrlInput = document.getElementById('websiteUrl');
+const analysisContent = document.getElementById('analysisContent');
+
+analyzeButton.addEventListener('click', async () => {
+    const websiteUrl = websiteUrlInput.value;
+    if (!websiteUrl) {
+        errorMessage.textContent = "Please enter a valid URL.";
+        return;
+    }
+    
+    
+// Load the provided website in an iframe
+const iframe = document.createElement('iframe');
+iframe.src = websiteUrl;
+iframe.onload = async () => {
+    const styles = [];
+    // Iterate over all elements in the iframe and capture their computed styles
+    const elements = iframe.contentDocument.querySelectorAll('*');
+    elements.forEach(element => {
+        const computedStyle = window.getComputedStyle(element);
+        styles.push(computedStyle.cssText);
+    });
+    // Send the captured CSS to the server for analysis
+    const response = await fetch('/analyze', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ cssData: styles.join('; ') })
+    });
+    if (!response.ok) {
+        throw new Error("Failed to analyze the website.");
+    }
+    const data = await response.json();
+    // Display the analysis results to the user
+    analysisContent.innerHTML = data.description;
+    // Update the progress bar to 100%
+    progress.style.width = "100%";
+};
+document.body.appendChild(iframe);
+
+    const cssData = /* Captured CSS data */;
+    
+    try {
+        // Send the captured CSS to the server for analysis
+        const response = await fetch('/analyze', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ cssData })
+        });
+        
+        if (!response.ok) {
+            throw new Error("Failed to analyze the website.");
+        }
+        
+        const data = await response.json();
+        
+        // Display the analysis results to the user
+        analysisContent.innerHTML = data.description;
+        
+        // Update the progress bar to 100%
+        progress.style.width = "100%";
+        
+    } catch (error) {
+        errorMessage.textContent = error.message;
+    }
+});
+
+
+// Helper function to create a new module for analysis results
+function createModule(title, content) {
+    const module = document.createElement('div');
+    module.className = 'module';
+    const moduleTitle = document.createElement('h3');
+    moduleTitle.textContent = title;
+    const moduleContent = document.createElement('p');
+    moduleContent.textContent = content;
+    module.appendChild(moduleTitle);
+    module.appendChild(moduleContent);
+    return module;
+}
+
+// Function to display analysis results in animated modules
+function displayAnalysisInModules(analysis) {
+    const analysisContainer = document.getElementById('analysisContainer');
+    for (const [title, content] of Object.entries(analysis)) {
+        const module = createModule(title, content);
+        module.style.opacity = 0;  // Start invisible for fade-in animation
+        analysisContainer.appendChild(module);
+        // Fade-in animation
+        setTimeout(() => {
+            module.style.transition = 'opacity 1s';
+            module.style.opacity = 1;
+        }, 100);
+    }
+}
+
+// Load the provided website in an iframe and capture its CSS
+const iframe = document.createElement('iframe');
+iframe.onload = async () => {
+    const styles = [];
+    const elements = iframe.contentDocument.querySelectorAll('*');
+    elements.forEach(element => {
+        const computedStyle = window.getComputedStyle(element);
+        styles.push(computedStyle.cssText);
+    });
+
+    const response = await fetch('/analyze', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ cssData: styles.join('; ') })
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to analyze the website.");
+    }
+
+    const data = await response.json();
+    displayAnalysisInModules(data);
+    progress.style.width = "100%";
+};
+document.body.appendChild(iframe);
+
+// Handling user interactions and triggering analysis
+const analyzeButton = document.getElementById('analyzeButton');
+const websiteUrlInput = document.getElementById('websiteUrl');
+const analysisContent = document.getElementById('analysisContent');
+const progress = document.getElementById('progressBar');
+
+analyzeButton.addEventListener('click', async () => {
+    const websiteUrl = websiteUrlInput.value;
+    iframe.src = websiteUrl;
+});
+
