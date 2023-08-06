@@ -110,7 +110,7 @@ function filterCssContent(cssContent) {
 
 async function getCssContentFromUrl(url) {
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: "new",
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
   
@@ -279,7 +279,10 @@ const analyzeWebsite = async (req, res) => {
     // Send the captured CSS to the OpenAI API for text generation
     logger.info('Sending request to OpenAI API');
 
-    const analysis = await sendRequestWithRetry(filteredCssContent);
+    const analysisResponse = await sendRequestWithRetry(truncatedPrompt);
+
+    // Extract the analysis content from the response
+    const analysis = analysisResponse.choices[0].text;
 
     // Analyze and score each category
     const categories = ["Color Scheme", "Typography", "Layout and Spacing", "Design Principles", "Imagery and Graphics"];
@@ -289,17 +292,18 @@ const analyzeWebsite = async (req, res) => {
       const categoryAnalysisResponse = await sendRequestWithRetry(categoryPrompt);
       const score = calculateScore(category, categoryAnalysisResponse);
       categoryAnalysis[category] = {
-        analysis: categoryAnalysisResponse.data.choices[0].message.content,
+        analysis: categoryAnalysisResponse.choices[0].text,
         score: score
       };
     }
 
-    res.json({ css: filteredCssContent, colors, fonts, categoryAnalysis, analysis: analysis.data.choices[0].message.content });
+    res.json({ css: filteredCssContent, colors, fonts, categoryAnalysis, analysis });
   } catch (error) {
     logger.error('An error occurred while analyzing the website:', error);
     res.status(500).json({ error: 'An error occurred while analyzing the website.', details: error });
   }
 }
+
 
 // Route to analyze site CSS
 app.post('/analyze', analyzeWebsite);

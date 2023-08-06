@@ -51,9 +51,7 @@ async function analyzeWebsite() {
   } catch (_) {
     handleError({ message: 'Invalid URL.' });
     // Reset button and progress bar
-    analyzeButton.innerText = 'Analyze';
-    analyzeButton.disabled = false;
-    progressBar.style.visibility = 'hidden';
+    resetAnalyzer();
     return;
   }
 
@@ -64,6 +62,10 @@ async function analyzeWebsite() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url }),
     });
+
+    if (!response.ok) {
+      throw new Error('An error occurred while analyzing the website.');
+    }
 
     const data = await response.json();
     displayAnalysisResults(data.description);
@@ -80,6 +82,10 @@ async function analyzeWebsite() {
   }
 
   // Reset button and progress bar
+  resetAnalyzer();
+}
+
+function resetAnalyzer() {
   analyzeButton.innerText = 'Analyze';
   analyzeButton.disabled = false;
   progressBar.style.visibility = 'hidden';
@@ -110,6 +116,7 @@ function extractColorsAndFonts(cssData) {
 
 function displayColors(colors) {
   const colorContainer = document.querySelector('.color-palette');
+  colorContainer.innerHTML = ''; // Clear previous colors
   colors.forEach(color => {
     const swatch = document.createElement('div');
     swatch.classList.add('color-swatch');
@@ -120,6 +127,7 @@ function displayColors(colors) {
 
 function displayAnalysisResults(description) {
   const resultsContainer = document.querySelector('.analysis-results');
+  resultsContainer.innerHTML = ''; // Clear previous results
   const resultElem = document.createElement('p');
   resultElem.textContent = description;
   resultsContainer.appendChild(resultElem);
@@ -144,6 +152,8 @@ const suggestions = {
 };
 
 function provideSuggestions(data) {
+  const suggestionsContainer = document.querySelector('.suggestions');
+  suggestionsContainer.innerHTML = ''; // Clear previous suggestions
   if (data.colors.length < 3) {
     displaySuggestion(suggestions.colors);
   }
