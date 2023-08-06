@@ -28,10 +28,10 @@ window.addEventListener('scroll', () => {
 });
 
 // Analyzer
-const analyzeButton = document.getElementById('analyzeButton');
-const progressBar = document.getElementById('progressBar');
-const progress = document.getElementById('progress');
-const errorMessage = document.getElementById('errorMessage');
+// Removed redeclaration: const analyzeButton = document.getElementById('analyzeButton');
+// Removed redeclaration: // Removed redeclaration: const progressBar = document.getElementById('progressBar');
+// Removed redeclaration: const progress = document.getElementById('progress');
+// Removed redeclaration: const errorMessage = document.getElementById('errorMessage');
 
 analyzeButton.addEventListener('click', analyzeWebsite);
 
@@ -120,7 +120,7 @@ window.addEventListener('scroll', () => {
   const windowHeight = window.innerHeight;
   const documentHeight = document.documentElement.scrollHeight;
   const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  const progressPercentage = (scrollTop / (documentHeight - windowHeight)) * 100;
+  // Removed redeclaration: const progressPercentage = (scrollTop / (documentHeight - windowHeight)) * 100;
   progress.style.width = `${progressPercentage}%`;
 });
 
@@ -393,3 +393,287 @@ function displayAnalysis(analysis) {
     displayDesignPrinciplesResults(analysisSections[3]);
     displayImageryResults(analysisSections[4]);
 }
+
+
+// CSS Inspection
+document.body.addEventListener('mouseover', (event) => {
+    const elementStyles = window.getComputedStyle(event.target);
+    // TODO: Further processing or displaying of the styles
+});
+
+// CSS Analysis
+analyzeButton.addEventListener('click', async () => {
+    // Capture the CSS or other data to send for analysis
+    const cssData = '';  // TODO: Replace with actual CSS data or functionality
+    try {
+        const response = await fetch('/analyze', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ cssData })
+        });
+        const data = await response.json();
+        
+// Extract the analysis results from the response and display them to the user
+const { description, scores } = data;
+analysisContent.innerHTML = description;
+// (Additional logic can be added here to display scores and other analysis details in the specified format)
+
+        
+        // Update the progress bar
+        progress.style.width = "100%";
+    } catch (error) {
+        errorMessage.textContent = "Error analyzing the website. Please try again.";
+    }
+});
+
+// TODO: Implement other client-side functionalities based on the placeholders and unfinished parts of the code
+
+
+// URL Submission and Analysis Initialization
+// Removed redeclaration: const websiteUrlInput = document.getElementById('websiteUrl');
+// Removed redeclaration: const analysisContent = document.getElementById('analysisContent');
+
+analyzeButton.addEventListener('click', async () => {
+    const websiteUrl = websiteUrlInput.value;
+    if (!websiteUrl) {
+        errorMessage.textContent = "Please enter a valid URL.";
+        return;
+    }
+    
+    
+// Load the provided website in an iframe
+const iframe = document.createElement('iframe');
+iframe.src = websiteUrl;
+iframe.onload = async () => {
+    const styles = [];
+    // Iterate over all elements in the iframe and capture their computed styles
+    const elements = iframe.contentDocument.querySelectorAll('*');
+    elements.forEach(element => {
+        const computedStyle = window.getComputedStyle(element);
+        styles.push(computedStyle.cssText);
+    });
+    // Send the captured CSS to the server for analysis
+    const response = await fetch('/analyze', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ cssData: styles.join('; ') })
+    });
+    if (!response.ok) {
+        throw new Error("Failed to analyze the website.");
+    }
+    const data = await response.json();
+    // Display the analysis results to the user
+    analysisContent.innerHTML = data.description;
+    // Update the progress bar to 100%
+    progress.style.width = "100%";
+};
+document.body.appendChild(iframe);
+
+    const cssData = '';  // TODO: Replace with actual CSS data or functionality
+    
+    try {
+        // Send the captured CSS to the server for analysis
+        const response = await fetch('/analyze', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ cssData })
+        });
+        
+        if (!response.ok) {
+            throw new Error("Failed to analyze the website.");
+        }
+        
+        const data = await response.json();
+        
+        // Display the analysis results to the user
+        analysisContent.innerHTML = data.description;
+        
+        // Update the progress bar to 100%
+        progress.style.width = "100%";
+        
+    } catch (error) {
+        errorMessage.textContent = error.message;
+    }
+});
+
+
+// Helper function to create a new module for analysis results
+function createModule(title, content) {
+    const module = document.createElement('div');
+    module.className = 'module';
+    const moduleTitle = document.createElement('h3');
+    moduleTitle.textContent = title;
+    const moduleContent = document.createElement('p');
+    moduleContent.textContent = content;
+    module.appendChild(moduleTitle);
+    module.appendChild(moduleContent);
+    return module;
+}
+
+// Function to display analysis results in animated modules
+function displayAnalysisInModules(analysis) {
+    const analysisContainer = document.getElementById('analysisContainer');
+    for (const [title, content] of Object.entries(analysis)) {
+        const module = createModule(title, content);
+        module.style.opacity = 0;  // Start invisible for fade-in animation
+        analysisContainer.appendChild(module);
+        // Fade-in animation
+        setTimeout(() => {
+            module.style.transition = 'opacity 1s';
+            module.style.opacity = 1;
+        }, 100);
+    }
+}
+
+// Load the provided website in an iframe and capture its CSS
+const iframe = document.createElement('iframe');
+iframe.onload = async () => {
+    const styles = [];
+    const elements = iframe.contentDocument.querySelectorAll('*');
+    elements.forEach(element => {
+        const computedStyle = window.getComputedStyle(element);
+        styles.push(computedStyle.cssText);
+    });
+
+    const response = await fetch('/analyze', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ cssData: styles.join('; ') })
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to analyze the website.");
+    }
+
+    const data = await response.json();
+    displayAnalysisInModules(data);
+    progress.style.width = "100%";
+};
+document.body.appendChild(iframe);
+
+// Handling user interactions and triggering analysis
+// Removed redeclaration: const analyzeButton = document.getElementById('analyzeButton');
+// Removed redeclaration: const websiteUrlInput = document.getElementById('websiteUrl');
+// Removed redeclaration: const analysisContent = document.getElementById('analysisContent');
+// Removed redeclaration: const progress = document.getElementById('progressBar');
+
+analyzeButton.addEventListener('click', async () => {
+    const websiteUrl = websiteUrlInput.value;
+    iframe.src = websiteUrl;
+});
+
+
+// Analyze Function
+async function analyzeWebsite() {
+    const websiteURL = document.getElementById('websiteURL').value;
+    if (!websiteURL) {
+        errorMessage.textContent = 'Please enter a valid website URL.';
+        return;
+    }
+
+    // Initiate analysis for each module
+    const modules = ['color_scheme', 'typography', 'layout_spacing', 'design_principles', 'imagery_graphics'];
+    let progressStep = 100 / modules.length;
+
+    for (let module of modules) {
+        try {
+            let response = await fetch('/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ url: websiteURL, module: module })
+            });
+            let data = await response.json();
+            document.querySelector(`#${module} .module-result`).textContent = data.result;
+            progressBar.style.width = `${progressBar.offsetWidth + progressStep}%`;
+        } catch (error) {
+            errorMessage.textContent = 'An error occurred during the analysis. Please try again.';
+            return;
+        }
+    }
+}
+
+analyzeButton.addEventListener('click', analyzeWebsite);
+
+// Elements references
+// Removed redeclaration: const analyzeButton = document.getElementById('analyzeButton');
+// Removed redeclaration: const errorMessage = document.getElementById('error-message');
+// Removed redeclaration: // Removed redeclaration: const progressBar = document.getElementById('analysis-progress');
+const loader = document.getElementById('loader'); // Assuming there's a loader element
+
+// Disable/Enable button utility
+function toggleButtonState(button, state) {
+    button.disabled = !state;
+}
+
+// Show/Hide loader utility
+function toggleLoader(state) {
+    loader.style.display = state ? 'block' : 'none';
+}
+
+// Reset feedback UI
+function resetFeedbackUI() {
+    errorMessage.textContent = '';
+    progressBar.style.width = '0%';
+}
+
+async function analyzeWebsite() {
+    const websiteURL = document.getElementById('websiteURL').value;
+    if (!websiteURL) {
+        errorMessage.textContent = 'Please enter a valid website URL.';
+        return;
+    }
+    
+    // Reset UI feedback and disable button
+    resetFeedbackUI();
+    toggleButtonState(analyzeButton, false);
+    toggleLoader(true);
+
+    const modules = ['color_scheme', 'typography', 'layout_spacing', 'design_principles', 'imagery_graphics'];
+    let progressStep = 100 / modules.length;
+
+    for (let module of modules) {
+        try {
+            let response = await fetch('/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ url: websiteURL, module: module })
+            });
+
+            if (!response.ok) {
+                throw new Error('Server responded with an error');
+            }
+
+            let data = await response.json();
+            if (data.error) {
+                throw new Error(data.error);
+            }
+
+            document.querySelector(`#${module} .module-result`).textContent = data.result;
+            progressBar.style.width = `${progressBar.offsetWidth + progressStep}%`;
+
+        } catch (error) {
+            errorMessage.textContent = error.message || 'An error occurred during the analysis. Please try again.';
+            toggleLoader(false);
+            toggleButtonState(analyzeButton, true);
+            return;
+        }
+    }
+
+    // Re-enable button and hide loader after analysis
+    toggleButtonState(analyzeButton, true);
+    toggleLoader(false);
+}
+
+analyzeButton.addEventListener('click', analyzeWebsite);
