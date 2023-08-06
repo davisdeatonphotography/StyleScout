@@ -1,4 +1,9 @@
-require('dotenv').config();
+try {
+  require('dotenv').config();
+} catch (err) {
+  console.warn("No .env file found. Assuming production environment variables are set.");
+}
+
 
 const fs = require('fs');
 const validator = require('validator');
