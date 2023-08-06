@@ -128,3 +128,50 @@ TypeError: Cannot read properties of undefined (reading 'choices')
 2023-08-06T04:53:16.280Z [INFO]: Tokens in request: 380050
 2023-08-06T04:53:16.280Z [INFO]: Sending request number 6
 2023-08-06T04:53:19.179Z [INFO]: Received response from OpenAI API:
+2023-08-06T05:04:07.425Z [INFO]: Server running on port 5500
+2023-08-06T05:04:17.243Z [INFO]: Navigating to URL:
+2023-08-06T05:04:20.523Z [INFO]: CSS content:
+2023-08-06T05:04:20.527Z [INFO]: Filtered CSS content:
+2023-08-06T05:04:26.344Z [INFO]: Sending request to OpenAI API
+2023-08-06T05:04:26.344Z [INFO]: Tokens in request: 113
+2023-08-06T05:04:26.345Z [INFO]: Sending request number 1
+2023-08-06T05:04:26.590Z [ERROR]: Error sending request to OpenAI API: Request failed with status code 404
+Error: Request failed with status code 404
+    at createError (D:\Programming\Projects\Active\StyleScout\node_modules\axios\lib\core\createError.js:16:15)
+    at settle (D:\Programming\Projects\Active\StyleScout\node_modules\axios\lib\core\settle.js:17:12)
+    at IncomingMessage.handleStreamEnd (D:\Programming\Projects\Active\StyleScout\node_modules\axios\lib\adapters\http.js:322:11)
+    at IncomingMessage.emit (node:events:526:35)
+    at endReadableNT (node:internal/streams/readable:1376:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+2023-08-06T05:04:26.591Z [ERROR]: Error response body:
+2023-08-06T05:04:26.592Z [ERROR]: An error occurred while analyzing the website: Request failed with status code 404
+Error: Request failed with status code 404
+    at createError (D:\Programming\Projects\Active\StyleScout\node_modules\axios\lib\core\createError.js:16:15)
+    at settle (D:\Programming\Projects\Active\StyleScout\node_modules\axios\lib\core\settle.js:17:12)
+    at IncomingMessage.handleStreamEnd (D:\Programming\Projects\Active\StyleScout\node_modules\axios\lib\adapters\http.js:322:11)
+    at IncomingMessage.emit (node:events:526:35)
+    at endReadableNT (node:internal/streams/readable:1376:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+2023-08-06T05:11:02.044Z [INFO]: Server running on port 5500
+2023-08-06T05:11:11.779Z [INFO]: Navigating to URL:
+2023-08-06T05:11:15.063Z [INFO]: CSS content:
+2023-08-06T05:11:15.069Z [INFO]: Filtered CSS content:
+2023-08-06T05:11:21.052Z [INFO]: Sending request to OpenAI API
+2023-08-06T05:11:21.053Z [INFO]: Tokens in request: 113
+2023-08-06T05:11:21.053Z [INFO]: Sending request number 1
+2023-08-06T05:11:22.205Z [INFO]: Received response from OpenAI API:
+2023-08-06T05:11:22.206Z [INFO]: Tokens in request: 380024
+2023-08-06T05:11:22.206Z [INFO]: Sending request number 2
+2023-08-06T05:11:26.639Z [INFO]: Received response from OpenAI API:
+2023-08-06T05:11:26.640Z [INFO]: Tokens in request: 380022
+2023-08-06T05:11:26.640Z [INFO]: Sending request number 3
+2023-08-06T05:11:34.218Z [INFO]: Received response from OpenAI API:
+2023-08-06T05:11:34.218Z [INFO]: Tokens in request: 380030
+2023-08-06T05:11:34.218Z [INFO]: Sending request number 4
+2023-08-06T05:11:40.246Z [INFO]: Received response from OpenAI API:
+2023-08-06T05:11:40.247Z [INFO]: Tokens in request: 380029
+2023-08-06T05:11:40.247Z [INFO]: Sending request number 5
+2023-08-06T05:11:49.130Z [INFO]: Received response from OpenAI API:
+2023-08-06T05:11:49.131Z [INFO]: Tokens in request: 380032
+2023-08-06T05:11:49.131Z [INFO]: Sending request number 6
+2023-08-06T05:11:58.265Z [INFO]: Received response from OpenAI API:

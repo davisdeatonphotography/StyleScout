@@ -50,16 +50,19 @@ async function sendRequestWithRetry(cssContent, retries = 5, delay = 5 * 60 * 10
     logger.info(`Sending request number ${requestCount}`);
 
     const truncatedContent = truncate(cssContent, MAX_TOKENS);
-
-    const response = await axios.post('https://api.openai.com/v1/engines/davinci/completions', {
-      prompt: truncatedContent,
-      max_tokens: MAX_TOKENS,
+    const response = await axios.post('https://api.openai.com/v1/chat/completions', {
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        { role: "user", content: truncatedContent }
+      ],
     }, {
       headers: {
         'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
         'Content-Type': 'application/json',
       },
     });
+    
 
     logger.info('Received response from OpenAI API:', response.data);
     return response.data;
