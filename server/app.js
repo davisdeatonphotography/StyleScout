@@ -1,26 +1,15 @@
-try {
-  require('dotenv').config();
-} catch (err) {
-  console.warn("No .env file found. Assuming production environment variables are set.");
-}
-
+require('dotenv').config();
 
 const fs = require('fs');
 const validator = require('validator');
 const express = require('express');
 const cors = require('cors');
-const { Configuration, OpenAIApi } = require('openai');
+const axios = require('axios');
 const puppeteer = require('puppeteer');
 const winston = require('winston');
 const path = require('path');
 
-
 console.log('OPENAI_API_KEY:', process.env.OPENAI_API_KEY);
-
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
 
 // Create Express app
 const app = express();
@@ -62,16 +51,18 @@ async function sendRequestWithRetry(cssContent, retries = 5, delay = 5 * 60 * 10
 
     const truncatedContent = truncate(cssContent, MAX_TOKENS);
 
-    const analysis = await openai.createChatCompletion({
-      model: 'gpt-3.5-turbo',
-      messages: [
-        { role: 'system', content: 'You are an AI trained to analyze CSS.' },
-        { role: 'user', content: truncatedContent },
-      ],
+    const response = await axios.post('https://api.openai.com/v1/engines/davinci/completions', {
+      prompt: truncatedContent,
+      max_tokens: MAX_TOKENS,
+    }, {
+      headers: {
+        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
     });
 
-    logger.info('Received response from OpenAI API:', analysis);
-    return analysis;
+    logger.info('Received response from OpenAI API:', response.data);
+    return response.data;
   } catch (error) {
     if (error.response && error.response.status === 429) {
       if (retries > 0) {
