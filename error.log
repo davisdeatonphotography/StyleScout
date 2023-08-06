@@ -1,177 +1,23 @@
-2023-08-06T04:38:31.787Z [INFO]: Server running on port 5500
-2023-08-06T04:38:43.883Z [INFO]: Navigating to URL:
-2023-08-06T04:38:47.998Z [INFO]: CSS content:
-2023-08-06T04:38:48.005Z [INFO]: Filtered CSS content:
-2023-08-06T04:38:54.887Z [INFO]: Sending request to OpenAI API
-2023-08-06T04:38:54.888Z [INFO]: Tokens in request: 379908
-2023-08-06T04:38:54.888Z [INFO]: Sending request number 1
-2023-08-06T04:38:57.706Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:38:57.706Z [INFO]: Tokens in request: 379951
-2023-08-06T04:38:57.707Z [INFO]: Sending request number 2
-2023-08-06T04:39:01.395Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:39:01.396Z [ERROR]: An error occurred while analyzing the website: Cannot read properties of undefined (reading 'choices')
-TypeError: Cannot read properties of undefined (reading 'choices')
-    at analyzeWebsite (D:\Programming\Projects\Active\StyleScout\server\app.js:292:49)
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-2023-08-06T04:42:05.014Z [INFO]: Server running on port 5500
-2023-08-06T04:42:18.937Z [INFO]: Navigating to URL:
-2023-08-06T04:42:22.485Z [INFO]: CSS content:
-2023-08-06T04:42:22.490Z [INFO]: Filtered CSS content:
-2023-08-06T04:42:29.243Z [INFO]: Sending request to OpenAI API
-2023-08-06T04:42:29.243Z [INFO]: Tokens in request: 113
-2023-08-06T04:42:29.244Z [INFO]: Sending request number 1
-2023-08-06T04:42:32.170Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:42:32.170Z [INFO]: Tokens in request: 380042
-2023-08-06T04:42:32.171Z [INFO]: Sending request number 2
-2023-08-06T04:42:35.005Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:42:35.006Z [INFO]: Tokens in request: 380040
-2023-08-06T04:42:35.006Z [INFO]: Sending request number 3
-2023-08-06T04:42:37.831Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:42:37.831Z [INFO]: Tokens in request: 380048
-2023-08-06T04:42:37.832Z [INFO]: Sending request number 4
-2023-08-06T04:42:40.890Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:42:40.890Z [INFO]: Tokens in request: 380047
-2023-08-06T04:42:40.891Z [INFO]: Sending request number 5
-2023-08-06T04:42:43.732Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:42:43.733Z [INFO]: Tokens in request: 380050
-2023-08-06T04:42:43.733Z [INFO]: Sending request number 6
-2023-08-06T04:42:46.614Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:45:19.235Z [INFO]: Server running on port 5500
-2023-08-06T04:45:29.888Z [INFO]: Navigating to URL:
-2023-08-06T04:45:33.604Z [INFO]: CSS content:
-2023-08-06T04:45:33.609Z [INFO]: Filtered CSS content:
-2023-08-06T04:45:40.885Z [INFO]: Sending request to OpenAI API
-2023-08-06T04:45:40.885Z [INFO]: Tokens in request: 113
-2023-08-06T04:45:40.886Z [INFO]: Sending request number 1
-2023-08-06T04:45:43.850Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:45:43.850Z [INFO]: Tokens in request: 380042
-2023-08-06T04:45:43.850Z [INFO]: Sending request number 2
-2023-08-06T04:45:46.681Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:45:46.682Z [INFO]: Tokens in request: 380040
-2023-08-06T04:45:46.682Z [INFO]: Sending request number 3
-2023-08-06T04:45:49.720Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:45:49.720Z [INFO]: Tokens in request: 380048
-2023-08-06T04:45:49.721Z [INFO]: Sending request number 4
-2023-08-06T04:45:52.607Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:45:52.608Z [INFO]: Tokens in request: 380047
-2023-08-06T04:45:52.608Z [INFO]: Sending request number 5
-2023-08-06T04:45:55.499Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:45:55.499Z [INFO]: Tokens in request: 380050
-2023-08-06T04:45:55.500Z [INFO]: Sending request number 6
-2023-08-06T04:45:59.461Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:48:45.978Z [INFO]: Server running on port 5500
-2023-08-06T04:49:12.349Z [INFO]: Navigating to URL:
-2023-08-06T04:49:16.916Z [INFO]: CSS content:
-2023-08-06T04:49:16.928Z [INFO]: Filtered CSS content:
-2023-08-06T04:49:23.784Z [INFO]: Sending request to OpenAI API
-2023-08-06T04:49:23.785Z [INFO]: Tokens in request: 113
-2023-08-06T04:49:23.785Z [INFO]: Sending request number 1
-2023-08-06T04:49:26.905Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:49:26.905Z [INFO]: Tokens in request: 380042
-2023-08-06T04:49:26.906Z [INFO]: Sending request number 2
-2023-08-06T04:49:29.787Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:49:29.788Z [INFO]: Tokens in request: 380040
-2023-08-06T04:49:29.789Z [INFO]: Sending request number 3
-2023-08-06T04:49:32.656Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:49:32.656Z [INFO]: Tokens in request: 380048
-2023-08-06T04:49:32.656Z [INFO]: Sending request number 4
-2023-08-06T04:49:35.520Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:49:35.521Z [INFO]: Tokens in request: 380047
-2023-08-06T04:49:35.521Z [INFO]: Sending request number 5
-2023-08-06T04:49:38.360Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:49:38.360Z [INFO]: Tokens in request: 380050
-2023-08-06T04:49:38.360Z [INFO]: Sending request number 6
-2023-08-06T04:49:41.278Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:51:20.103Z [INFO]: Server running on port 5500
-2023-08-06T04:51:29.184Z [INFO]: Navigating to URL:
-2023-08-06T04:51:32.692Z [INFO]: CSS content:
-2023-08-06T04:51:32.698Z [INFO]: Filtered CSS content:
-2023-08-06T04:51:39.870Z [INFO]: Sending request to OpenAI API
-2023-08-06T04:51:39.870Z [INFO]: Tokens in request: 113
-2023-08-06T04:51:39.871Z [INFO]: Sending request number 1
-2023-08-06T04:51:42.817Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:51:42.817Z [INFO]: Tokens in request: 380042
-2023-08-06T04:51:42.817Z [INFO]: Sending request number 2
-2023-08-06T04:51:45.706Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:51:45.707Z [INFO]: Tokens in request: 380040
-2023-08-06T04:51:45.707Z [INFO]: Sending request number 3
-2023-08-06T04:51:48.828Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:51:48.829Z [INFO]: Tokens in request: 380048
-2023-08-06T04:51:48.829Z [INFO]: Sending request number 4
-2023-08-06T04:51:49.780Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:51:49.780Z [INFO]: Tokens in request: 380047
-2023-08-06T04:51:49.781Z [INFO]: Sending request number 5
-2023-08-06T04:51:52.896Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:51:52.896Z [INFO]: Tokens in request: 380050
-2023-08-06T04:51:52.897Z [INFO]: Sending request number 6
-2023-08-06T04:51:55.945Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:52:43.780Z [INFO]: Server running on port 5500
-2023-08-06T04:52:50.542Z [INFO]: Navigating to URL:
-2023-08-06T04:52:54.449Z [INFO]: CSS content:
-2023-08-06T04:52:54.454Z [INFO]: Filtered CSS content:
-2023-08-06T04:53:01.512Z [INFO]: Sending request to OpenAI API
-2023-08-06T04:53:01.512Z [INFO]: Tokens in request: 113
-2023-08-06T04:53:01.513Z [INFO]: Sending request number 1
-2023-08-06T04:53:04.482Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:53:04.483Z [INFO]: Tokens in request: 380042
-2023-08-06T04:53:04.483Z [INFO]: Sending request number 2
-2023-08-06T04:53:07.333Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:53:07.333Z [INFO]: Tokens in request: 380040
-2023-08-06T04:53:07.334Z [INFO]: Sending request number 3
-2023-08-06T04:53:10.271Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:53:10.271Z [INFO]: Tokens in request: 380048
-2023-08-06T04:53:10.272Z [INFO]: Sending request number 4
-2023-08-06T04:53:13.152Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:53:13.152Z [INFO]: Tokens in request: 380047
-2023-08-06T04:53:13.153Z [INFO]: Sending request number 5
-2023-08-06T04:53:16.279Z [INFO]: Received response from OpenAI API:
-2023-08-06T04:53:16.280Z [INFO]: Tokens in request: 380050
-2023-08-06T04:53:16.280Z [INFO]: Sending request number 6
-2023-08-06T04:53:19.179Z [INFO]: Received response from OpenAI API:
-2023-08-06T05:04:07.425Z [INFO]: Server running on port 5500
-2023-08-06T05:04:17.243Z [INFO]: Navigating to URL:
-2023-08-06T05:04:20.523Z [INFO]: CSS content:
-2023-08-06T05:04:20.527Z [INFO]: Filtered CSS content:
-2023-08-06T05:04:26.344Z [INFO]: Sending request to OpenAI API
-2023-08-06T05:04:26.344Z [INFO]: Tokens in request: 113
-2023-08-06T05:04:26.345Z [INFO]: Sending request number 1
-2023-08-06T05:04:26.590Z [ERROR]: Error sending request to OpenAI API: Request failed with status code 404
-Error: Request failed with status code 404
-    at createError (D:\Programming\Projects\Active\StyleScout\node_modules\axios\lib\core\createError.js:16:15)
-    at settle (D:\Programming\Projects\Active\StyleScout\node_modules\axios\lib\core\settle.js:17:12)
-    at IncomingMessage.handleStreamEnd (D:\Programming\Projects\Active\StyleScout\node_modules\axios\lib\adapters\http.js:322:11)
-    at IncomingMessage.emit (node:events:526:35)
-    at endReadableNT (node:internal/streams/readable:1376:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-2023-08-06T05:04:26.591Z [ERROR]: Error response body:
-2023-08-06T05:04:26.592Z [ERROR]: An error occurred while analyzing the website: Request failed with status code 404
-Error: Request failed with status code 404
-    at createError (D:\Programming\Projects\Active\StyleScout\node_modules\axios\lib\core\createError.js:16:15)
-    at settle (D:\Programming\Projects\Active\StyleScout\node_modules\axios\lib\core\settle.js:17:12)
-    at IncomingMessage.handleStreamEnd (D:\Programming\Projects\Active\StyleScout\node_modules\axios\lib\adapters\http.js:322:11)
-    at IncomingMessage.emit (node:events:526:35)
-    at endReadableNT (node:internal/streams/readable:1376:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-2023-08-06T05:11:02.044Z [INFO]: Server running on port 5500
-2023-08-06T05:11:11.779Z [INFO]: Navigating to URL:
-2023-08-06T05:11:15.063Z [INFO]: CSS content:
-2023-08-06T05:11:15.069Z [INFO]: Filtered CSS content:
-2023-08-06T05:11:21.052Z [INFO]: Sending request to OpenAI API
-2023-08-06T05:11:21.053Z [INFO]: Tokens in request: 113
-2023-08-06T05:11:21.053Z [INFO]: Sending request number 1
-2023-08-06T05:11:22.205Z [INFO]: Received response from OpenAI API:
-2023-08-06T05:11:22.206Z [INFO]: Tokens in request: 380024
-2023-08-06T05:11:22.206Z [INFO]: Sending request number 2
-2023-08-06T05:11:26.639Z [INFO]: Received response from OpenAI API:
-2023-08-06T05:11:26.640Z [INFO]: Tokens in request: 380022
-2023-08-06T05:11:26.640Z [INFO]: Sending request number 3
-2023-08-06T05:11:34.218Z [INFO]: Received response from OpenAI API:
-2023-08-06T05:11:34.218Z [INFO]: Tokens in request: 380030
-2023-08-06T05:11:34.218Z [INFO]: Sending request number 4
-2023-08-06T05:11:40.246Z [INFO]: Received response from OpenAI API:
-2023-08-06T05:11:40.247Z [INFO]: Tokens in request: 380029
-2023-08-06T05:11:40.247Z [INFO]: Sending request number 5
-2023-08-06T05:11:49.130Z [INFO]: Received response from OpenAI API:
-2023-08-06T05:11:49.131Z [INFO]: Tokens in request: 380032
-2023-08-06T05:11:49.131Z [INFO]: Sending request number 6
-2023-08-06T05:11:58.265Z [INFO]: Received response from OpenAI API:
+2023-08-06T05:47:38.446Z [INFO]: Server running on port 5500
+2023-08-06T05:47:46.664Z [INFO]: Navigating to URL:
+2023-08-06T05:47:50.042Z [INFO]: CSS content:
+2023-08-06T05:47:50.048Z [INFO]: Filtered CSS content:
+2023-08-06T05:47:57.383Z [INFO]: Sending request to OpenAI API
+2023-08-06T05:47:57.383Z [INFO]: Tokens in request: 4109
+2023-08-06T05:47:57.384Z [INFO]: Sending request number 1
+2023-08-06T05:48:11.212Z [INFO]: Received response from OpenAI API:
+2023-08-06T05:48:11.212Z [INFO]: Tokens in request: 85775
+2023-08-06T05:48:11.213Z [INFO]: Sending request number 2
+2023-08-06T05:48:12.186Z [INFO]: Received response from OpenAI API:
+2023-08-06T05:48:12.187Z [INFO]: Tokens in request: 85773
+2023-08-06T05:48:12.187Z [INFO]: Sending request number 3
+2023-08-06T05:48:15.726Z [INFO]: Received response from OpenAI API:
+2023-08-06T05:48:15.726Z [INFO]: Tokens in request: 85781
+2023-08-06T05:48:15.727Z [INFO]: Sending request number 4
+2023-08-06T05:48:20.915Z [INFO]: Received response from OpenAI API:
+2023-08-06T05:48:20.916Z [INFO]: Tokens in request: 85780
+2023-08-06T05:48:20.916Z [INFO]: Sending request number 5
+2023-08-06T05:48:33.474Z [INFO]: Received response from OpenAI API:
+2023-08-06T05:48:33.474Z [INFO]: Tokens in request: 85783
+2023-08-06T05:48:33.475Z [INFO]: Sending request number 6
+2023-08-06T05:48:41.046Z [INFO]: Received response from OpenAI API:
