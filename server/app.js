@@ -14,20 +14,6 @@ const puppeteer = require('puppeteer');
 const winston = require('winston');
 const path = require('path');
 
-// Read .env file
-const envFileContents = fs.readFileSync(path.join(__dirname, '/../.env'), 'utf-8');
-
-// Split file into lines
-const lines = envFileContents.split('\n');
-
-// Parse lines into key-value pairs
-const env = {};
-lines.forEach((line) => {
-  const [key, value] = line.split('=');
-  if (key && value) {
-    env[key.trim()] = value.trim();
-  }
-});
 
 console.log('OPENAI_API_KEY:', process.env.OPENAI_API_KEY);
 
