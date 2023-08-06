@@ -1,0 +1,250 @@
+:root {
+  --primary-color: #FF5A5F;
+  --secondary-color: #FFC100;
+  --bg-color: rgba(255, 255, 255, 0.8);
+  --header-font-size: 36px;
+  --subheader-font-size: 24px;
+  --body-font-size: 16px;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  font-size: var(--body-font-size);
+  background: linear-gradient(to bottom right, var(--primary-color), var(--secondary-color));
+  color: #FFF;
+}
+
+h1, h2 {
+  font-size: var(--header-font-size);
+}
+
+h2 {
+  font-size: var(--subheader-font-size);
+}
+
+button {
+  background: linear-gradient(to bottom right, var(--primary-color), var(--secondary-color));
+  border: none;
+  border-radius: 4px;
+  padding: 12px 24px;
+  color: #FFF;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+section.swup-transition-out {
+  opacity: 0;
+}
+
+section#home {
+  flex-direction: column;
+  text-align: center;
+}
+
+section#home a.button {
+  text-decoration: none;
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: var(--secondary-color);
+  color: #FFF;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out;
+}
+
+section#home a.button:hover {
+  background-color: #FFD700;
+}
+
+section#results {
+  background-color: var(--bg-color);
+  color: #333;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--primary-color);
+  color: #FFF;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+
+.logo {
+  font-size: var(--subheader-font-size);
+  font-weight: bold;
+}
+
+.navigation {
+  display: flex;
+}
+
+.nav-item {
+  margin-left: 24px;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-item:hover {
+  color: var(--secondary-color);
+}
+
+.form {
+  background: var(--bg-color);
+  padding: 40px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  margin: auto;
+  max-width: 90%;
+}
+
+#urlInput {
+  width: 100%;
+  padding: 12px 24px;
+  border-radius: 4px;
+  border: none;
+  margin-bottom: 24px;
+  font-size: var(--body-font-size);
+  box-sizing: border-box;
+}
+
+#progressBar {
+  height: 10px;
+  background: #DDD;
+  border-radius: 5px;
+  margin-top: 24px;
+  visibility: hidden;
+}
+
+#progress {
+  height: 100%;
+  background: var(--secondary-color);
+  width: 0%;
+  border-radius: 5px;
+  transition: width 0.2s ease-in-out;
+}
+
+.module {
+  background: var(--bg-color);
+  padding: 24px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  margin: 24px 0;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn ease 1s;
+  animation-fill-mode: forwards;
+}
+
+.fade-in {
+  opacity: 0;
+  animation-name: fadeIn;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+}
+@keyframes fadeIn{
+ from { opacity:.1; }
+ to { opacity:.9; }
+}
+
+footer {
+  background: var(--primary-color);
+  color: #FFF;
+  padding: 24px;
+  text-align: center;
+  margin-top: 24px;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--primary-color);
+  color: #FFF;
+}
+
+.logo {
+  font-size: var(--header-font-size);
+  font-weight: bold;
+  padding-left:20px;
+}
+
+.navigation {
+  display:flex;
+  justify-content:flex-end;
+  margin-right:20px;
+}
+
+.nav-item {
+  margin-left:24px;
+  transition:color 0.2s ease-in-out;
+  text-decoration:none;
+  color:#FFF;
+}
+
+.nav-item:hover {
+  color:var(--secondary-color);
+}
+
+.nav-item.active {
+  font-weight:bold;
+}
+
+body {
+  overflow: hidden;
+}
+
+/* Glassmorphism Button Styles */
+.button-nav {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 10px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+  cursor: pointer;
+  .button-nav {
+    margin-top: 20px;
+  }
+}
+
+.button-nav svg {
+  width: 25px;
+  height: 25px;
+  fill: #fff;
+}
+
+.button-nav:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

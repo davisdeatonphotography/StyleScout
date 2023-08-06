@@ -1,0 +1,32 @@
+{
+  "name": "stylescout",
+  "version": "1.0.0",
+  "description": "",
+  "main": "listModels.js",
+  "dependencies": {
+    "@swup/preload-plugin": "^3.1.2",
+    "asynckit": "^0.4.0",
+    "axios": "^0.26.1",
+    "combined-stream": "^1.0.8",
+    "cors": "^2.8.0",
+    "delayed-stream": "^1.0.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "follow-redirects": "^1.15.2",
+    "form-data": "^4.0.0",
+    "mime-db": "^1.52.0",
+    "mime-types": "^2.1.35",
+    "openai": "^3.3.0",
+    "openapi": "^1.0.1",
+    "puppeteer": "^20.9.0",
+    "validator": "^13.9.0",
+    "winston": "^3.10.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
