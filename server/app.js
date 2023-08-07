@@ -297,6 +297,7 @@ function calculateHarmonyScore(colors) {
 
     // Placeholder logic, can be enhanced
     return colors.length * 2;  // example logic
+}
 
 function calculateContrastScore(colors) {
     // Placeholder logic, can be enhanced
@@ -314,6 +315,7 @@ function calculateReadabilityScore(fonts) {
 
     // Placeholder logic, can be enhanced
     return fonts.length * 4;  // example logic
+}
 
 function calculateSuitabilityScore(fonts) {
     // Placeholder logic, can be enhanced
@@ -362,9 +364,9 @@ function calculateContrastScore(colors) {
 
 score = (harmonyScore + contrastScore) / 2; // Average score
       break;
-    case "Typography": break;
+    case "Typography":
       // Calculate score based on the readability and suitability of the fonts
-      const readabilityScoreValueValue = calculateReadabilityScore(fonts); // Random score between 0 and 10
+      const readabilityScore = calculateReadabilityScore(fonts); // Random score between 0 and 10
       const suitabilityScore = calculateSuitabilityScore(fonts); // Random score between 0 and 10
       
 
@@ -379,7 +381,7 @@ function calculateReadabilityScore(fonts) {
     // Placeholder logic: more comprehensive analysis can be done based on the fonts array
     const common_fonts = ["Arial", "Helvetica", "Times New Roman", "Verdana", "Tahoma", "Georgia"];
     const used_common_fonts = fonts.filter(font => common_fonts.includes(font));
-    const readabilityScoreValue = (used_common_fonts.length / common_fonts.length) * 10;
+    const readabilityScore = (used_common_fonts.length / common_fonts.length) * 10;
 
     return readabilityScore;
 }
@@ -395,19 +397,19 @@ function calculateSuitabilityScore(fonts) {
 
 score = (readabilityScore + suitabilityScore) / 2; // Average score
       break;
-    case "Layout and Spacing": break;
+    case "Layout and Spacing":
       // Calculate score based on the overall layout and spacing used in the design
       score = Math.floor(Math.random() * 11); // Random score between 0 and 10
       break;
-    case "Design Principles": break;
+    case "Design Principles":
       // Calculate score based on the adherence to design principles evident in the CSS code
       score = Math.floor(Math.random() * 11); // Random score between 0 and 10
       break;
-    case "Imagery and Graphics": break;
+    case "Imagery and Graphics":
       // Calculate score based on the quality and relevance of the imagery and graphics used
       score = Math.floor(Math.random() * 11); // Random score between 0 and 10
       break;
-//     default:
+    default:
       score = 0; // Default score if category is not recognized
   }
 
@@ -670,7 +672,7 @@ function calculateHarmonyScore(colors) {
     // Placeholder logic for harmony score based on number of unique colors
     // In a real-world scenario, this would be more complex and consider color theory
     return (colors.length > 5) ? 5 : 10;
-}
+};
 
 function calculateContrastScore(colors) {
     // Placeholder logic for contrast score based on number of unique colors
@@ -689,7 +691,7 @@ function calculateReadabilityScore(fonts) {
 
     // Placeholder logic for readability score based on number of unique fonts
     return (fonts.length > 3) ? 7 : 10;
-}
+};
 
 function calculateSuitabilityScore(fonts) {
     // Placeholder logic for suitability score based on number of unique fonts
@@ -715,13 +717,13 @@ function calculateScore(category, data) {
     switch(category) {
         case "Color Scheme":
             return (calculateHarmonyScore(data.colors) + calculateContrastScore(data.colors)) / 2;
-        case "Typography": break;
+        case "Typography":
             return (calculateReadabilityScore(data.fonts) + calculateSuitabilityScore(data.fonts)) / 2;
-        case "Layout and Spacing": break;
+        case "Layout and Spacing":
             return calculateLayoutScore(data.css);
-        case "Design Principles": break;
+        case "Design Principles":
             return calculateDesignPrinciplesScore(data.css);
-        case "Imagery and Graphics": break;
+        case "Imagery and Graphics":
             return calculateImageryScore(data.css);
         default:
             return 0;
@@ -745,7 +747,7 @@ function calculateHarmonyScore(colors) {
     const contrastScore = colors[0] !== colors[colors.length - 1] ? 5 : 3;  // Basic contrast check, score out of 5
 
     return (diversityScore + contrastScore) / 2;
-}
+};
 
 
 function calculateReadabilityScore(fonts) {
@@ -759,7 +761,7 @@ function calculateReadabilityScore(fonts) {
     const webSafeFonts = ["Arial", "Helvetica", "Times New Roman", "Verdana", "Tahoma", "Georgia"];
     const scorePerFont = 10 / webSafeFonts.length;
     return fonts.reduce((score, font) => webSafeFonts.includes(font) ? score + scorePerFont : score, 0);
-}
+};
 
 
 function calculateLayoutScore(cssData) {
@@ -774,7 +776,7 @@ function calculateLayoutScore(cssData) {
     const spacingScore = cssData.includes("margin") && cssData.includes("padding") ? 2 : 0;  // Consistent spacing
 
     return (layoutScore + spacingScore) / 2;
-}
+};
 
 
 function calculateDesignPrinciplesScore(cssData) {
@@ -791,7 +793,7 @@ function calculateDesignPrinciplesScore(cssData) {
     const hierarchyScore = cssData.includes("font-size") ? 4 : 0;
 
     return (alignmentScore + balanceScore + hierarchyScore) / 3;
-}
+};
 
 
 function calculateImageryScore(imageData) {
@@ -807,7 +809,7 @@ function calculateImageryScore(imageData) {
     const resolutionScore = imageData.includes(".png") || imageData.includes(".jpg") ? 5 : 3;  // Placeholder for high-resolution images
 
     return (svgScore + resolutionScore) / 2;
-}
+};
 
 
 // Error handling middleware
