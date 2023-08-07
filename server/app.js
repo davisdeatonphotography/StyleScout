@@ -638,6 +638,44 @@ function calculateScore(category, data) {
     }
 }
 
+
+function calculateHarmonyScore(colors) {
+    const uniqueColors = new Set(colors);
+    const diversityScore = Math.min(uniqueColors.size, 5);  // Score out of 5 based on diversity of colors, but not too many
+    const contrastScore = colors[0] !== colors[colors.length - 1] ? 5 : 3;  // Basic contrast check, score out of 5
+
+    return (diversityScore + contrastScore) / 2;
+}
+
+function calculateReadabilityScore(fonts) {
+    const webSafeFonts = ["Arial", "Helvetica", "Times New Roman", "Verdana", "Tahoma", "Georgia"];
+    const scorePerFont = 10 / webSafeFonts.length;
+    return fonts.reduce((score, font) => webSafeFonts.includes(font) ? score + scorePerFont : score, 0);
+}
+
+function calculateLayoutScore(cssData) {
+    const layoutScore = cssData.includes("flex") || cssData.includes("grid") ? 8 : 5;  // Modern layout techniques
+    const spacingScore = cssData.includes("margin") && cssData.includes("padding") ? 2 : 0;  // Consistent spacing
+
+    return (layoutScore + spacingScore) / 2;
+}
+
+function calculateDesignPrinciplesScore(cssData) {
+    const alignmentScore = cssData.includes("align") ? 3 : 0;
+    const balanceScore = cssData.includes("margin: auto") ? 3 : 0;
+    const hierarchyScore = cssData.includes("font-size") ? 4 : 0;
+
+    return (alignmentScore + balanceScore + hierarchyScore) / 3;
+}
+
+function calculateImageryScore(imageData) {
+    const svgScore = imageData.includes("svg") ? 5 : 0;  // Preference to SVGs
+    const resolutionScore = imageData.includes("high-resolution") ? 5 : 3;  // Placeholder for high-resolution images
+
+    return (svgScore + resolutionScore) / 2;
+}
+
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     winston.error(err.message, err);

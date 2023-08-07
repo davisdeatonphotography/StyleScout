@@ -720,3 +720,27 @@ function embedAnalyzedWebpage(url) {
     iframe.style.border = 'none';
     iframeContainer.appendChild(iframe);
 }
+
+// Display a loading spinner during the analysis
+function displayLoadingSpinner() {
+    const spinner = document.createElement('div');
+    spinner.id = 'loadingSpinner';
+    spinner.innerHTML = '<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>';
+    document.body.appendChild(spinner);
+}
+
+// Hide the loading spinner once analysis is complete
+function hideLoadingSpinner() {
+    const spinner = document.getElementById('loadingSpinner');
+    if (spinner) {
+        spinner.remove();
+    }
+}
+
+// Update the startAnalysis function to show and hide the spinner
+function startAnalysis() {
+    displayLoadingSpinner();
+    // Rest of the analysis logic...
+    // ...
+    hideLoadingSpinner();  // Add this at the end of the analysis process
+}
