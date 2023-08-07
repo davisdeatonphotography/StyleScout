@@ -147,38 +147,37 @@ const swup = new Swup({
     progress.style.width = `${progressPercentage}%`;
   });
   
-  async 
-  function displayResults(data) {
-      // Extract data
-      const { css, colors, fonts, categoryAnalysis, analysis } = data;
-  
-      // Display CSS
-      document.getElementById('css-content').textContent = css;
-  
-      // Display colors
-      const colorsContainer = document.getElementById('colors-container');
-      colorsContainer.innerHTML = '';
-      colors.forEach(color => {
-          const colorElem = document.createElement('div');
-          colorElem.className = 'color-box';
-          colorElem.style.backgroundColor = color;
-          colorsContainer.appendChild(colorElem);
-      });
-  
-      // Display fonts
-      const fontsContainer = document.getElementById('fonts-container');
-      fontsContainer.innerHTML = '';
-      fonts.forEach(font => {
-          const fontElem = document.createElement('div');
-          fontElem.className = 'font-box';
-          fontElem.textContent = font;
-          fontsContainer.appendChild(fontElem);
-      });
-  
-      // Display analysis
-      const analysisContainer = document.getElementById('analysis-container');
-      analysisContainer.innerHTML = analysis;
-  }
+  async function displayResults(data) {
+    const { css, colors, fonts, categoryAnalysis, analysis } = data;
+
+    // Display CSS
+    document.getElementById('css-content').textContent = css;
+
+    // Display colors
+    const colorsContainer = document.getElementById('colors-container');
+    colorsContainer.innerHTML = '';
+    colors.forEach(color => {
+        const colorElem = document.createElement('div');
+        colorElem.className = 'color-box';
+        colorElem.style.backgroundColor = color;
+        colorsContainer.appendChild(colorElem);
+    });
+
+    // Display fonts
+    const fontsContainer = document.getElementById('fonts-container');
+    fontsContainer.innerHTML = '';
+    fonts.forEach(font => {
+        const fontElem = document.createElement('div');
+        fontElem.className = 'font-box';
+        fontElem.textContent = font;
+        fontsContainer.appendChild(fontElem);
+    });
+
+    // Display analysis
+    const analysisContainer = document.getElementById('analysis-container');
+    analysisContainer.innerHTML = analysis;
+}
+
   
     const { css, colors, fonts, categoryAnalysis, analysis } = data;
     const analysisDiv = document.getElementById('analysis');
@@ -204,7 +203,7 @@ const swup = new Swup({
     const fontsDiv = document.createElement('div');
     fontsDiv.innerHTML = `<h3>Fonts</h3><ul>${fonts.map(font => `<li>${font}</li>`).join('')}</ul>`;
     analysisDiv.appendChild(fontsDiv);
-  }
+  
   
   function createModule(category, contentData) {
     const moduleDiv = document.createElement('div');
