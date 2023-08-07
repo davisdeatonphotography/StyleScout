@@ -59,7 +59,26 @@ async function analyzeWithOpenAI(cssData) {
 }
 
 
+
 app.post('/analyze', async (req, res) => {
+    try {
+        const { cssData } = req.body;
+        
+        // Validate and sanitize the incoming data
+        if (!cssData || typeof cssData !== 'string') {
+            return res.status(400).json({ error: 'Invalid CSS data provided.' });
+        }
+
+        const analysis = await getAnalysisFromOpenAI(cssData);
+        const score = calculateScore(analysis);
+        
+        res.json({ analysis, score });
+    } catch (error) {
+        console.error('Error during OpenAI API call:', error);
+        res.status(500).json({ error: 'Failed to analyze the CSS data. Please try again later.' });
+    }
+});
+
     try {
         const { cssData } = req.body;
         
@@ -546,7 +565,26 @@ async function analyzeCssWithOpenAI(cssContent) {
 }
 
 // Server endpoint to analyze a website's design
+
 app.post('/analyze', async (req, res) => {
+    try {
+        const { cssData } = req.body;
+        
+        // Validate and sanitize the incoming data
+        if (!cssData || typeof cssData !== 'string') {
+            return res.status(400).json({ error: 'Invalid CSS data provided.' });
+        }
+
+        const analysis = await getAnalysisFromOpenAI(cssData);
+        const score = calculateScore(analysis);
+        
+        res.json({ analysis, score });
+    } catch (error) {
+        console.error('Error during OpenAI API call:', error);
+        res.status(500).json({ error: 'Failed to analyze the CSS data. Please try again later.' });
+    }
+});
+
     try {
         const { url } = req.body;
 
