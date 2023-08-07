@@ -682,16 +682,12 @@ function calculateContrastScore(colors) {
 
 
 function calculateReadabilityScore(fonts) {
-    const webSafeFonts = ["Arial", "Helvetica", "Times New Roman", "Verdana", "Tahoma", "Georgia", "Courier New", "Lucida Console"];
-    const scorePerFont = 10 / webSafeFonts.length;
-    const fontWeightScore = fonts.includes("bold") || fonts.includes("bolder") ? 2 : 0;
+  const webSafeFonts = ["Arial", "Helvetica", ...];
+  const scorePerFont = 10 / webSafeFonts.length;
+  const fontWeightScore = fonts.includes("bold") ? 5 : 10;
 
-    return fonts.reduce((score, font) => webSafeFonts.includes(font) ? score + scorePerFont : score, 0) + fontWeightScore;
+  return fonts.reduce((score, font) => webSafeFonts.includes(font) ? score + scorePerFont : score, 0) + fontWeightScore;
 }
-
-    // Placeholder logic for readability score based on number of unique fonts
-    return (fonts.length > 3) ? 7 : 10;
-};
 
 function calculateSuitabilityScore(fonts) {
     // Placeholder logic for suitability score based on number of unique fonts
