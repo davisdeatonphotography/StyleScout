@@ -294,13 +294,53 @@ function calculateScore(category, analysis) {
       // Calculate score based on the harmony and contrast of the colors
       const harmonyScore = calculateHarmonyScore(colors); // Random score between 0 and 10
       const contrastScore = calculateContrastScore(colors); // Random score between 0 and 10
-      score = (harmonyScore + contrastScore) / 2; // Average score
+      
+function calculateHarmonyScore(colors) {
+    // Placeholder logic: more comprehensive analysis can be done based on the colors array
+    const uniqueColors = new Set(colors);
+    const diversityScore = uniqueColors.size / 10; // Score based on the diversity of colors
+    const coherenceScore = 1 - diversityScore; // Score based on the coherence of the color palette
+
+    return (diversityScore + coherenceScore) / 2;
+}
+
+function calculateContrastScore(colors) {
+    // Placeholder logic: a more refined method would analyze the contrast between primary text color and background color
+    const primaryColor = colors[0]; // Assuming first color is primary
+    const backgroundColor = colors[colors.length - 1]; // Assuming last color is background
+
+    // Check if primary and background colors are sufficiently different
+    const contrast = primaryColor !== backgroundColor ? 1 : 0;
+
+    return contrast * 10; // Convert to a score out of 10
+}
+
+score = (harmonyScore + contrastScore) / 2; // Average score
       break;
     case "Typography":
       // Calculate score based on the readability and suitability of the fonts
       const readabilityScore = calculateReadabilityScore(fonts); // Random score between 0 and 10
       const suitabilityScore = calculateSuitabilityScore(fonts); // Random score between 0 and 10
-      score = (readabilityScore + suitabilityScore) / 2; // Average score
+      
+function calculateReadabilityScore(fonts) {
+    // Placeholder logic: more comprehensive analysis can be done based on the fonts array
+    const common_fonts = ["Arial", "Helvetica", "Times New Roman", "Verdana", "Tahoma", "Georgia"];
+    const used_common_fonts = fonts.filter(font => common_fonts.includes(font));
+    const readabilityScore = (used_common_fonts.length / common_fonts.length) * 10;
+
+    return readabilityScore;
+}
+
+function calculateSuitabilityScore(fonts) {
+    // Placeholder logic: sans-serif fonts might be preferred for web content
+    const preferred_fonts = ["Arial", "Helvetica", "Verdana", "Tahoma"];
+    const used_preferred_fonts = fonts.filter(font => preferred_fonts.includes(font));
+    const suitabilityScore = (used_preferred_fonts.length / preferred_fonts.length) * 10;
+
+    return suitabilityScore;
+}
+
+score = (readabilityScore + suitabilityScore) / 2; // Average score
       break;
     case "Layout and Spacing":
       // Calculate score based on the overall layout and spacing used in the design
@@ -419,7 +459,39 @@ app.listen(port, () => {
 });
 
 async function getCssContentFromUrl(url) {
+    const browser = await 
+async function analyzeWithPuppeteer(url) {
     const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage();
+
+    // Navigate to the provided URL
+    await page.goto(url, { waitUntil: 'networkidle0' });
+
+    // Extract design elements
+    const extractedData = await page.evaluate(() => {
+        return {
+            css: [...document.styleSheets].map(sheet => {
+                try {
+                    return [...sheet.cssRules].map(rule => rule.cssText).join('\n');
+                } catch (e) {
+                    return '';
+                }
+            }).join('\n'),
+            fonts: window.getComputedStyle(document.body).fontFamily,
+            color: window.getComputedStyle(document.body).color,
+            backgroundColor: window.getComputedStyle(document.body).backgroundColor
+        };
+    });
+
+    // Capture screenshot
+    const screenshotPath = path.join(__dirname, '../public/screenshots/screenshot.png');
+    await page.screenshot({ path: screenshotPath, fullPage: true });
+
+    await browser.close();
+
+    return extractedData;
+}
+
     const page = await browser.newPage();
     
     // Navigate to the given URL
@@ -490,4 +562,84 @@ app.post('/analyze', async (req, res) => {
         logger.error('Error analyzing website:', error);
         res.status(500).json({ error: 'Error analyzing website.' });
     }
+});
+
+// Enhanced Puppeteer integration
+async function getEnhancedCssContentFromUrl(url) {
+    // Use Puppeteer to fetch all stylesheets, inline styles, and other relevant CSS
+    //...
+    return allCssContent;
+}
+
+async function getEnhancedColorsFromPage(url) {
+    // Use Puppeteer to fetch all unique color values from the entire webpage
+    //...
+    return uniqueColors;
+}
+
+async function getEnhancedFontsFromPage(url) {
+    // Use Puppeteer to fetch all unique font values from the entire webpage, including variants and weights
+    //...
+    return uniqueFonts;
+}
+
+// Enhanced Scoring System
+function calculateHarmonyScore(colors) {
+    // Placeholder logic for harmony score based on number of unique colors
+    // In a real-world scenario, this would be more complex and consider color theory
+    return (colors.length > 5) ? 5 : 10;
+}
+
+function calculateContrastScore(colors) {
+    // Placeholder logic for contrast score based on number of unique colors
+    // Ideally, this would use a library to calculate actual contrast ratios
+    return (colors.length > 3) ? 7 : 10;
+}
+
+function calculateReadabilityScore(fonts) {
+    // Placeholder logic for readability score based on number of unique fonts
+    return (fonts.length > 3) ? 7 : 10;
+}
+
+function calculateSuitabilityScore(fonts) {
+    // Placeholder logic for suitability score based on number of unique fonts
+    return (fonts.length > 2) ? 7 : 10;
+}
+
+function calculateLayoutScore(css) {
+    // Placeholder logic for layout score based on the presence of certain CSS properties
+    return (css.includes('margin') && css.includes('padding')) ? 10 : 7;
+}
+
+function calculateDesignPrinciplesScore(css) {
+    // Placeholder logic for design principles score
+    return (css.includes('flex') || css.includes('grid')) ? 10 : 8;
+}
+
+function calculateImageryScore(css) {
+    // Placeholder logic for imagery score based on the presence of background-image properties
+    return (css.includes('background-image')) ? 10 : 8;
+}
+
+function calculateScore(category, data) {
+    switch(category) {
+        case "Color Scheme":
+            return (calculateHarmonyScore(data.colors) + calculateContrastScore(data.colors)) / 2;
+        case "Typography":
+            return (calculateReadabilityScore(data.fonts) + calculateSuitabilityScore(data.fonts)) / 2;
+        case "Layout and Spacing":
+            return calculateLayoutScore(data.css);
+        case "Design Principles":
+            return calculateDesignPrinciplesScore(data.css);
+        case "Imagery and Graphics":
+            return calculateImageryScore(data.css);
+        default:
+            return 0;
+    }
+}
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    winston.error(err.message, err);
+    res.status(500).send({ error: "An unexpected error occurred. Please try again." });
 });
